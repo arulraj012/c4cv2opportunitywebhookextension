@@ -1,36 +1,60 @@
 const cds = require('@sap/cds');
-const axios = require('axios');
 
-module.exports = cds.service.impl(async function () {
-    this.on('calculateRevenue', async (req) => {
-        const currentImage  = req.data.currentImage; // Extract payload data
-        const beforeImage = req.data.beforeImage;
+class OpportunityV2Service extends cds.ApplicationService {
+  init() {
+    this.on('posthookValidation', async (req) => {
+      try {
+        const { entity, currentImage } = req.data;
+
         console.log('Payload currentImage received:', JSON.stringify(currentImage));
 
-        // Define default or calculated value for expectedRevenueAmount
-        const defaultExpectedRevenueAmount = {
-            content: 100 *2, // Example calculation
-            currencyCode: "USD"
-        };
-        if (!beforeImage.expectedRevenueAmount 
-            || !beforeImage.expectedRevenueAmount.content 
-            || beforeImage.expectedRevenueAmount.content === 0 )
-        {
-            // update expectedRevenueAmount
-            if (!currentImage.expectedRevenueAmount) {
-                currentImage.expectedRevenueAmount = defaultExpectedRevenueAmount;
-            }else{
-                currentImage.expectedRevenueAmount = defaultExpectedRevenueAmount;
-            }
-
+        if (!entity || !currentImage || !currentImage.items || !Array.isArray(currentImage.items)) {
+          console.log('Missing required data or items');
+          return { noChanges: true };
         }
-       
-        //send response
-        const response=  {
-            "data":currentImage,
-            "noChanges": false
-         }
-         console.log('Payload Response:', response);
-         return response;  // This is the key part to ensure response format
+
+        const validationErrors = [];
+
+        for (const item of currentImage.items) {
+          console.log('Item:', JSON.stringify(item));
+
+          const netAmount = item?.netAmount?.content;
+
+          if (netAmount === 0 || netAmount === null || netAmount === undefined) {
+            console.log('Item validation error: netAmount cannot be zero or null');
+
+            validationErrors.push({
+              code: 'Opportunity_Item_Validation.10001',
+              message: 'Opportunity netAmount is missing',
+              target: 'netAmount'
+            });
+          }
+        }
+
+        if (validationErrors.length > 0) {
+          return {
+            noChanges: true,
+            error: validationErrors
+          };
+        }
+
+        return { noChanges: true };
+      } catch (error) {
+        console.error('Exception in posthookValidation:', error);
+
+        return {
+          noChanges: true,
+          error: [{
+            code: 'Opportunity_Item_Validation.99999',
+            message: 'An unexpected error occurred during validation',
+            target: 'posthookValidation'
+          }]
+        };
+      }
     });
-});
+
+    return super.init();
+  }
+}
+
+module.exports = OpportunityV2Service;
