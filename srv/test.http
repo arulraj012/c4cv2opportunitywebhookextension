@@ -1,3 +1,247 @@
-### call calculateRevenue
-POST http://localhost:4004/api/v1/calculateRevenue
-Content-Type: application/json
+### call posthookValidation
+POST http://localhost:4004/api/v1/posthookValidation
+Content-Type: application/json,
+{
+    "entity": "sap.ssc.opportunityservice.entity.opportunity",
+    "currentImage": {
+        "id": "b78b1b53-b861-11ef-9d4d-19b85f4b1334",
+        "displayId": "26",
+        "draftMode": false,
+        "name": "Opportunity Approval",
+        "documentType": "OPPT",
+        "priority": "1",
+        "source": "4",
+        "status": "2",
+        "customStatus": "2",
+        "category": "0023",
+        "startDate": "2024-12-12",
+        "closeDate": "2024-12-22",
+        "expectedRevenueAmount": {
+            "content": 55000,
+            "currencyCode": "USD"
+        },
+        "totalExpectedNetAmount": {
+            "content": 0,
+            "currencyCode": "USD"
+        },
+        "probability": 40,
+        "weightedNetAmount": {
+            "content": 22000,
+            "currencyCode": "USD"
+        },
+        "revenueStartDate": "2024-12-22",
+        "revenueEndDate": "2024-12-22",
+        "forecastCategory": "1",
+        "salesCycle": "001",
+        "salesPhase": "003",
+        "phaseStartDate": "2024-12-12T10:02:52.543Z",
+        "phaseProgress": "1",
+        "distributionChannel": "1",
+        "division": "1",
+        "opportunityScore": 0,
+        "engagementScore": 0,
+        "isEndOfPurpose": false,
+        "account": {
+            "id": "11ed6592-5597-6e0e-afdb-814184010a00"
+        },
+        "individualCustomer": {},
+        "owner": {
+            "id": "11ef547a-77dd-c85e-afdb-81a0b8020a00"
+        },
+        "salesOrganisation": {
+            "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+        },
+        "salesUnit": {
+            "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+        },
+        "salesOffice": {},
+        "salesGroup": {},
+        "territory": {},
+        "headerRevenueSchedule": false,
+        "worklistItems": [],
+        "contacts": [],
+        "salesTeam": [],
+        "involvedParties": [
+            {
+                "id": "1bf03ebf-b862-11ef-9d4d-f506ffed9789",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "1005",
+                "roleCategory": "5",
+                "type": "159",
+                "isPrimary": true
+            },
+            {
+                "id": "2a091a86-b862-11ef-b5cf-1f98a73bd571",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "8",
+                "roleCategory": "8",
+                "type": "159",
+                "isPrimary": false
+            },
+            {
+                "id": "419d7ad4-b862-11ef-9a80-576564afd2cf",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "10",
+                "roleCategory": "10",
+                "type": "159",
+                "isPrimary": true
+            }
+        ],
+        "revenuePlans": [
+            {
+                "id": "0f3f5884-b862-11ef-b5cf-17f9cb4da0d3",
+                "partyId": "11ef547a-77dd-c85e-afdb-81a0b8020a00",
+                "splitPercentage": 100,
+                "territory": {},
+                "salesUnit": {
+                    "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+                }
+            }
+        ],
+        "revenueSchedules": [],
+        "items": [
+            {
+                "id": "4f41c127-30f7-11f0-b93c-ed6131f87f72",
+                "itemNumber": 10,
+                "productId": "11ef00f2-7412-113e-afdb-815544020a00",
+                "productDisplayId": "MT001",
+                "productCategory": {
+                    "id": "11ef00f2-1ecd-4d2e-afdb-819b3f020a00",
+                    "displayId": null,
+                    "description": null
+                },
+                "quantity": {
+                    "content": 1,
+                    "uomCode": "EA",
+                    "uomDescription": null
+                },
+                "netAmount": {
+                    "content": 0,
+                    "currencyCode": "EUR"
+                },
+                "proposedAmount": {
+                    "content": 0,
+                    "currencyCode": "EUR"
+                },
+                "revenueStartDate": "2025-05-29",
+                "revenueEndDate": "2025-05-29",
+                "extensions": {
+                    "ZMarketingCampaignID": ""
+                },
+                "parentItemNumber": 0
+            }
+        ],
+        "adminData": {
+            "createdBy": "a7dfccd0-547a-11ef-ab80-656fdbc1804d",
+            "createdOn": "2024-12-12T08:18:50.115Z",
+            "updatedBy": "a7dfccd0-547a-11ef-ab80-656fdbc1804d",
+            "updatedOn": "2024-12-12T10:02:52.543Z"
+        }
+    },
+    "beforeImage": {
+        "id": "b78b1b53-b861-11ef-9d4d-19b85f4b1334",
+        "displayId": "26",
+        "draftMode": false,
+        "name": "Opportunity Approval",
+        "documentType": "OPPT",
+        "source": "4",
+        "status": "2",
+        "customStatus": "2",
+        "category": "0023",
+        "startDate": "2024-12-12",
+        "closeDate": "2024-12-22",
+        "expectedRevenueAmount": {
+            "content": 55000,
+            "currencyCode": "USD"
+        },
+        "totalExpectedNetAmount": {
+            "content": 0,
+            "currencyCode": "USD"
+        },
+        "probability": 40,
+        "weightedNetAmount": {
+            "content": 22000,
+            "currencyCode": "USD"
+        },
+        "revenueStartDate": "2024-12-22",
+        "revenueEndDate": "2024-12-22",
+        "forecastCategory": "1",
+        "salesCycle": "001",
+        "salesPhase": "003",
+        "phaseStartDate": "2024-12-12T10:02:52.543Z",
+        "phaseProgress": "1",
+        "distributionChannel": "1",
+        "division": "1",
+        "opportunityScore": 0,
+        "engagementScore": 0,
+        "isEndOfPurpose": false,
+        "account": {
+            "id": "11ed6592-5597-6e0e-afdb-814184010a00"
+        },
+        "individualCustomer": {},
+        "owner": {
+            "id": "11ef547a-77dd-c85e-afdb-81a0b8020a00"
+        },
+        "salesOrganisation": {
+            "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+        },
+        "salesUnit": {
+            "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+        },
+        "salesOffice": {},
+        "salesGroup": {},
+        "territory": {},
+        "headerRevenueSchedule": false,
+        "worklistItems": [],
+        "contacts": [],
+        "salesTeam": [],
+        "involvedParties": [
+            {
+                "id": "1bf03ebf-b862-11ef-9d4d-f506ffed9789",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "1005",
+                "roleCategory": "5",
+                "type": "159",
+                "isPrimary": true
+            },
+            {
+                "id": "2a091a86-b862-11ef-b5cf-1f98a73bd571",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "8",
+                "roleCategory": "8",
+                "type": "159",
+                "isPrimary": false
+            },
+            {
+                "id": "419d7ad4-b862-11ef-9a80-576564afd2cf",
+                "partyId": "11ed6592-5597-6e0e-afdb-814184010a00",
+                "role": "10",
+                "roleCategory": "10",
+                "type": "159",
+                "isPrimary": true
+            }
+        ],
+        "revenuePlans": [
+            {
+                "id": "0f3f5884-b862-11ef-b5cf-17f9cb4da0d3",
+                "partyId": "11ef547a-77dd-c85e-afdb-81a0b8020a00",
+                "splitPercentage": 100,
+                "territory": {},
+                "salesUnit": {
+                    "id": "11ed64d3-554e-b30e-afdb-814184010a00"
+                }
+            }
+        ],
+        "revenueSchedules": [],
+        "adminData": {
+            "createdBy": "a7dfccd0-547a-11ef-ab80-656fdbc1804d",
+            "createdOn": "2024-12-12T08:18:50.115Z",
+            "updatedBy": "a7dfccd0-547a-11ef-ab80-656fdbc1804d",
+            "updatedOn": "2024-12-12T10:02:52.543Z"
+        }
+    },
+    "context": {
+        "employeeId": "11ef38f6-a7cc-562e-afdb-81ba16020a00",
+        "userId": "68d87bdf-38f7-11ef-8b5d-97b6f03a6a86"
+    }
+}

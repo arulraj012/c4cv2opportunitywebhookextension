@@ -99,6 +99,13 @@
       "options": {
         "cwd": "${workspaceFolder}"
       }
+    },
+    {
+      "type": "build.mta",
+      "label": "Build  (2)",
+      "taskType": "Build",
+      "projectPath": "/home/user/projects/C4COpportunityExtension1747132553350",
+      "extensions": []
     }
   ]
 }
