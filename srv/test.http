@@ -1,6 +1,7 @@
-### call posthookValidation
-POST http://localhost:4004/api/v1/posthookValidation
-Content-Type: application/json,
+### Test CAP prehook endpoint
+POST http://localhost:4004/api/v1/prehook
+Content-Type: application/json
+
 {
     "entity": "sap.ssc.opportunityservice.entity.opportunity",
     "currentImage": {
@@ -126,7 +127,7 @@ Content-Type: application/json,
                 "revenueStartDate": "2025-05-29",
                 "revenueEndDate": "2025-05-29",
                 "extensions": {
-                    "ZMarketingCampaignID": ""
+                    "ZMarketingCampaignID": "4455"
                 },
                 "parentItemNumber": 0
             }
@@ -233,6 +234,12 @@ Content-Type: application/json,
             }
         ],
         "revenueSchedules": [],
+        "extensions": {
+            "QuantOpp": {
+                "content": 2,
+                "uomCode": "EA"
+            }
+        },
         "adminData": {
             "createdBy": "a7dfccd0-547a-11ef-ab80-656fdbc1804d",
             "createdOn": "2024-12-12T08:18:50.115Z",
