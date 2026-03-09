@@ -15,19 +15,20 @@ modules:
     type: nodejs
     path: gen/srv
     parameters:
+      disk-quota: 1024M
+      memory: 512M
       buildpack: nodejs_buildpack
-      readiness-health-check-type: http
-      readiness-health-check-http-endpoint: /health
+
     build-parameters:
       builder: npm
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter)
         properties:
           srv-url: ${default-url}
-    requires:    
+    requires:
       - name: C4CV2OpportunityServiceExtension-connectivity
       - name: C4CV2OpportunityServiceExtension-destination
-
+      - name: C4CV2OpportunityServiceExtension-auth
 resources:
   - name: C4CV2OpportunityServiceExtension-connectivity
     type: org.cloudfoundry.managed-service
@@ -39,3 +40,15 @@ resources:
     parameters:
       service: destination
       service-plan: lite
+  - name: C4CV2OpportunityServiceExtension-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config:
+        xsappname: C4CV2OpportunityServiceExtension-${org}-${space}
+        tenant-mode: dedicated
+        credential-types:
+            - binding-secret
+            - x509
