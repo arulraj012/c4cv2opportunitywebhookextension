@@ -1,6 +1,16 @@
 {
+  "xsappname": "C4CV2OpportunityServiceExtension-auth",
+  "tenant-mode": "dedicated",
+  "description": "Security profile of called application",
   "scopes": [],
   "attributes": [],
   "role-templates": [],
-  "authorities-inheritance": false
+  "oauth2-configuration": {
+    "redirect-uris": [
+      "http://localhost:4004/**",
+      "https://*.hana.ondemand.com/**",
+      "https://*.applicationstudio.cloud.sap/**"
+    ]
+  }
+  
 }

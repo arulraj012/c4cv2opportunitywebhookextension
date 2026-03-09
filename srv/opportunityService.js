@@ -11,6 +11,7 @@ module.exports = async function (srv) {
       const errors = [];
       const info = [];
 
+
       const netAmount = item?.netAmount?.content;
       const marketingCampaignId = item?.extensions?.ZMarketingCampaignID;
 
@@ -39,15 +40,47 @@ module.exports = async function (srv) {
 
   srv.on('posthookValidation', async (req) => {
     try {
-      const { entity, currentImage } = req.data;
-
+      const { entity, beforeImage, currentImage } = req.data;
+      console.log('Payload posthook beforeImage received:', JSON.stringify(beforeImage));
       console.log('Payload posthook currentImage received:', JSON.stringify(currentImage));
 
-      if (!Utils.isValidPayload(entity, currentImage)) {
+      //current Image
+      if (!Utils.isValidPayload(entity, currentImage) || currentImage.draftMode === true) {
         console.log('Missing required data or items');
         return { noChanges: true };
       }
+      //before image
+      if (!Utils.isValidPayload(entity, beforeImage) || beforeImage.draftMode === true)  {
+        console.log('New Opportunity without items');
+        return { noChanges: true };
+      }
+      if (
+        !currentImage ||
+        !currentImage.account ||
+        !currentImage.account.id ||
+        currentImage.account.id === ''
+      ) {
+        console.log('Account ID is missing or empty');
+        return { noChanges: true };
+      }
 
+      // RULE: Check if the Account has 'Prospect' Role
+      try {
+        const v2AccountSrv = await cds.connect.to('v2AccountService');
+
+        const accountData = await v2AccountSrv.getAccountById(currentImage.account.id);
+
+        const accountRole = accountData?.customerRole;
+        if (accountRole !== 'BUP002') {
+          console.log('Account is not a Prospect (BUP002). Skipping further processing.');
+          return { noChanges: true };
+        }
+      } catch (err) {
+        console.error('Error while checking account role:', err.message);
+        return { noChanges: true };
+
+      }
+      console.log('Account is a Prospect, further processing.');
       const validationErrors = [];
       const validationInfomsg = [];
 
@@ -95,8 +128,7 @@ module.exports = async function (srv) {
   this.on("prehook", async request => {
     try {
       const { currentImage, beforeImage } = request.data;
-
-      console.log('Payload Prehook currentImage received:', JSON.stringify(currentImage));
+      console.log('Payload Prehook beforeImage received:', JSON.stringify(beforeImage));
 
       if (!currentImage || !Array.isArray(currentImage.items) || currentImage.items.length === 0) {
         console.log('Missing required data or items');
@@ -105,7 +137,7 @@ module.exports = async function (srv) {
 
       const opptQuantityDB = beforeImage?.extensions?.QuantOpp?.content || 0;
       let opptQuantity = 0;
-      let opptQuantityUnit ;
+      let opptQuantityUnit;
 
       for (const item of currentImage.items) {
         const quantity = item?.quantity?.content;
@@ -123,7 +155,7 @@ module.exports = async function (srv) {
           content: opptQuantity,
           uomCode: opptQuantityUnit
         };
-        
+
         return { data: currentImage, noChanges: false };
       }
 

@@ -1,4 +1,4 @@
-service opportunityV2Service @(path: '/api/v1') {
+service opportunityService @(path: '/opportunityV2Ext/api/v1') {
     @open
     type object {};
 

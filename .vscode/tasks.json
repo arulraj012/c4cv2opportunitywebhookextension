@@ -26,27 +26,6 @@
       "problemMatcher": []
     },
     {
-      "type": "build.mta",
-      "label": "Build ",
-      "taskType": "Build",
-      "projectPath": "/home/user/projects/C4COpportunityExtension1747132553350",
-      "extensions": []
-    },
-    {
-      "type": "deploy.mta.cf",
-      "label": "Deploy to Cloud Foundry ",
-      "taskType": "Deploy",
-      "mtarPath": "/home/user/projects/C4COpportunityExtension1747132553350/mta_archives/C4CV2OpportunityServiceExtension_1.0.0.mtar",
-      "extensions": [],
-      "dependsOn": [
-        "Build "
-      ],
-      "cfTarget": "CAFE_Dev",
-      "cfEndpoint": "https://api.cf.us10.hana.ondemand.com",
-      "cfOrg": "SAP Internal - BTP CSP Landscape_cx-cafe-collaboration-wtemzmdy",
-      "cfSpace": "CX_DEV"
-    },
-    {
       "label": "kill-cds-processes",
       "type": "shell",
       "command": "pids=$(ps aux | grep -vE 'grep|bash' | grep 'cds.js' | awk '{print $2}'); if [ -n \"$pids\" ]; then kill $pids; fi",
@@ -101,8 +80,22 @@
       }
     },
     {
+      "type": "deploy.mta.cf",
+      "label": "Deploy to Cloud Foundry ",
+      "taskType": "Deploy",
+      "mtarPath": "/home/user/projects/C4COpportunityExtension1747132553350/mta_archives/C4COpportunityExtension1747132553350_0.0.1.mtar",
+      "extensions": [],
+      "dependsOn": [
+        "Build "
+      ],
+      "cfTarget": "CXSandbox",
+      "cfEndpoint": "https://api.cf.us10-001.hana.ondemand.com",
+      "cfOrg": "cx_sandbox_cf_us",
+      "cfSpace": "dev"
+    },
+    {
       "type": "build.mta",
-      "label": "Build  (2)",
+      "label": "Build ",
       "taskType": "Build",
       "projectPath": "/home/user/projects/C4COpportunityExtension1747132553350",
       "extensions": []
